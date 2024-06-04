@@ -1,17 +1,15 @@
-import axios from "axios";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const mainUrl = axios.create({
-    baseURL: "https://dummyjson.com"
-})
-
-mainUrl.interceptors.request.use((req) => {
-    let token = localStorage.getItem("token")
-    if (token) {
-      // authorization va Bearer - o'zgarishi mumkin backendchidan so'raladi
-      req.headers.authorization = `Bearer ${token}`;
-    }
-    return req;
+export const productsApi = createApi({
+    reducerPath: "productsApi",
+    baseQuery: fetchBaseQuery({
+        baseUrl: "https://66458542b8925626f8921932.mockapi.io/api/v1/",
+    }),
+    endpoints: (builder) => ({
+        getAllProducts: builder.query({
+            query: () => "products",
+        }),
+    }),
 });
-  
 
-export default mainUrl
+export const { useGetAllProductsQuery } = productsApi;

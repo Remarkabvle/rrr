@@ -1,24 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import axios from '../../api'
-import ProductWrapper from '../../components/product-wrapper/ProductWrapper'
+import React from 'react';
+import Products from '../../components/product-wrapper/ProductWrapper';
 
 const Home = () => {
-  const [data,setData] = useState(null)
+    return (
+        <div>
+            <Products />
+        </div>
+    );
+};
 
-  useEffect(()=>{
-    axios
-      .get("/products")
-      .then(res => setData(res.data.products))
-      .catch(err => console.log(err))
-  }, [])
-
-  return (
-    <div>
-        <ProductWrapper title={"Mahsulotlar"} data={data}/>
-    </div>
-  )
-}
-
-export default Home
-
-
+export default Home;

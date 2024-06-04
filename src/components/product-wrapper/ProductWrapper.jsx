@@ -1,24 +1,22 @@
-import React from 'react'
-import ProductItem from './ProductItem'
-import "./ProductWrapper.css"
+import React from "react";
+import { useGetAllProductsQuery } from "../../api/index";
+import ProductsItem from "./ProductItem";
 
-const ProductWrapper = ({data,title}) => {
-  return (
-    <>
-    <h2>{title}</h2>
-    <div className='product__wrapper'>
-        {
-          data?.map((product)=>(
-            <ProductItem product={product} key={product.id}/>
-          ))
-        }
-    </div>
-        </>
-  )
-}
+const Products = () => {
+    const { data, error, isLoading } = useGetAllProductsQuery();
 
-export default ProductWrapper
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>Error loading products.</div>;
 
+    return (
+        <div className="products">
+            <div className="products__cards">
+                {data?.map((product) => (
+                    <ProductsItem key={product.id} product={product} />
+                ))}
+            </div>
+        </div>
+    );
+};
 
-
-
+export default Products;
